@@ -1,0 +1,29 @@
+Bug: triggering of an absorber failed
+-This bug led us to discover that when creating links between objects in BoardFactory, we were returning new
+gadget instances instead of referring to the existing gadgets that had already been constructed. Therefore there
+were no links between gadgets. 
+-This bug went undetected because we were overriding equals and hashcode for observational equality instead of 
+referential equality. 
+The board factory testing strategy was also flawed:  to verify that trigger arrays were the same, we were making a copy
+of the array and the comparing the equality, but since equals did not return false for pointing to different objects in 
+memory,the bug went undetected here as well.
+-For self-triggering, since the boolean was final, the gadgets were being constructed at the wrong time
+
+Major change: Ball to mutable from immutable
+-Our original decision to make balls immutable was rooted in general thinking that immutability is safer than mutability.
+-Immutability made it very difficult to track balls within the board because the board.handleCollision() method
+would have to create new instances of balls with updated positions and velocity vectors on each time step
+-Because we were adding copies, the blockingQueue in the absorber kept growing when balls were stored inside of it.
+
+Major change: Flipper as a rectangle
+-We originally created flipper as a 2x1 rectangle that changed its orientation in the bounding box when triggered.
+However, this only reflected binary flipping, so reflection from a flipper only occurred from a vertical or 
+horizontal state.
+-We made the change to a single line segment with the two circle corners as the flipper representation to simplify
+collision handling and so that the entire rectangle would stay within the 2Lx2L bounding box as we incremented the
+angle (see below).
+
+Major change: Flipper from binary flip to rotated angle position
+-We implemented the flipper rotation by creating an instance variable of a double to represent its angle within the
+bounding box as compared to its previously vertical or horizontal position. This value was updated by taking in the 
+minimum time value getTimeUntilCollision and multiplying it by the angular velocity and incrementing it.

@@ -1,0 +1,5 @@
+board name=player2 gravity = 10.0
+
+# define a ball
+ball name=BallA x=10.8 y=8.5 xVelocity=10.4 yVelocity=10.3 
+

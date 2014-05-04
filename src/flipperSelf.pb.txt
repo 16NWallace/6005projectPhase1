@@ -1,0 +1,5 @@
+board name=sabrina gravity = 10.0
+
+rightFlipper name=FlipR x=12 y=7 orientation=0
+
+fire trigger=FlipR action=FlipR

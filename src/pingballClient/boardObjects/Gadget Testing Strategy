@@ -1,0 +1,43 @@
+
+/** GENERAL TESTING STRATEGY FOR GADGETS
+ * 
+ * --Constructors--
+ * For each type of Gadget: 
+ * Catch error when coordinate passed into constructor is outside of the 20x20 board
+ * Catch error when coordinate passed into constructor is contained in the board, but one of the remaining corners is outside
+ * Construct without trigger/action connection
+ * Construct with trigger/action connections
+ * 
+ * --Collision Handling--
+ * Collide with corner - SquareBumper, TriangleBumper
+ * Collide with edge - SquareBumper, TrangleBumper
+ * Collide with CircleBumper
+ * Ball is moving parallel to object and never collides
+ * Collides with Flipper in initial position (both L and R flippers)
+ * Collides with Flipper in rotated position (both L and R flippers)
+ * Collides with Absorber when no ball is stored
+ * Collides with Absorber when ball is stored
+ * 
+ * --Trigger/Action--
+ * initialize without trigger, initialize with one trigger, initialize with multiple triggers
+ * Catch error if an object with no action is connected to a trigger (SquareBumper, CircleBumper, TriangleBumper, OuterWall)
+ * Check that respondToTrigger() does not mutate anything for gadgets with no action
+ * Absorber: not self-triggered
+ * Absorber: self-triggered
+ * 
+ * --ToString--
+ * SquareBumper == "#"
+ * CircleBumper == "0"
+ * TriangleBumper at 0 or 180 == "/"
+ * TriangleBumper at 90 or 270 == "\"
+ * Absorber == width x height grid of "="
+ * OuterWall == . 
+ * Flipper vertical == "|"
+ * Flipper horizontal == "-"
+ * Test for flipper in original state
+ * Test for flipper in rotated state
+ * 
+ * 
+ * @author nwallace
+ * 
+ */
